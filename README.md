@@ -23,25 +23,26 @@ after being copied to the temporary table.
 Installation
 ============
 
-source 'https://rubygems.org' do
-  ...
-  gem 'mysql_big_table_migration'
-  ...
-end
+	source 'https://rubygems.org' do
+	  ...
+	  gem 'mysql_big_table_migration'
+	  ...
+	end
 
 
 Example
 =======
 
-class AddIndexOnSomeColumnToSomeTable < ActiveRecord::Migration
-  def self.up
-    add_index_using_tmp_table :some_table, :some_column
-  end
 
-  def self.down
-    remove_index_using_tmp_table :some_table, :some_column
-  end
-end
+	class AddIndexOnSomeColumnToSomeTable < ActiveRecord::Migration
+	  def self.up
+	    add_index_using_tmp_table :some_table, :some_column
+	  end
+
+	  def self.down
+	    remove_index_using_tmp_table :some_table, :some_column
+	  end
+	end
 
 
 Copyright (c) 2010 Mark Woods, released under the MIT license
@@ -51,9 +52,7 @@ Testing
 
 You will need to bundle install dependencies for the project, as well as create a test database. To install dependencies run `bundle install`. To create the database run the following in a MySQL prompt as an admin user:
 
-```
-CREATE DATABASE mysql_big_table_migration_test;
-GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' IDENTIFIED BY 'password';
-```
+	CREATE DATABASE mysql_big_table_migration_test;
+	GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' IDENTIFIED BY 'password';
 
 After bundling dependencies, and setting up the test database, run the tests with `rake test`
