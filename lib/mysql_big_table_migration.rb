@@ -1,5 +1,3 @@
-require "rails/version"
-
 module MySQLBigTableMigration
 
   SUPPORTED_ADAPTERS = [
@@ -188,7 +186,7 @@ end
 
 if Object.const_defined?("ActiveRecord")
   class ActiveRecord::Migration
-    if Rails::VERSION::STRING < "3.0"
+    if ActiveRecord::VERSION::STRING < "3.0"
       extend MySQLBigTableMigration
     else
       include MySQLBigTableMigration

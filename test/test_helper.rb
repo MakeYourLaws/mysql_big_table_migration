@@ -1,12 +1,14 @@
 require 'rubygems'
 require 'fileutils'
-require 'test/unit'
+require 'minitest/autorun'
 require 'active_record'
 require 'active_record/connection_adapters/mysql_adapter'
 require 'active_support'
 require 'active_support/core_ext'
 require 'mysql'
+require 'mysql2'
 require 'logger'
+require 'yaml'
 require File.dirname(__FILE__) + "/../lib/mysql_big_table_migration"
 
 TEST_CONFIGS = ["mysql", "mysql2"]
@@ -28,11 +30,11 @@ def read_log_file
 end
 
 def load_schema(adapter)
-  config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
+  config = YAML.load(ERB.new(File.read(File.join(File.dirname(__FILE__), 'database.yml'))).result)
   @log = StringIO.new
   ActiveRecord::Base.logger = Logger.new(@log)
   ActiveRecord::Base.establish_connection(config[adapter.to_s])
-  load(File.dirname(__FILE__) + "/schema.rb")
+  load(File.join(File.dirname(__FILE__), "schema.rb"))
 end
 
 def load_fixtures(options = {})
@@ -72,6 +74,20 @@ def result_hashes(query)
     result.each(:as => :hash)
   else
     raise "Unknown adapter"
+  end
+end
+
+# Proc#bind removed from ActiveSupport 4+
+class Proc
+  def bind(object)
+    block, time = self, Time.now
+    object.class_eval do
+      method_name = "__bind_#{time.to_i}_#{time.usec}"
+      define_method(method_name, &block)
+      method = instance_method(method_name)
+      remove_method(method_name)
+      method
+    end.bind(object)
   end
 end
 

@@ -1,10 +1,10 @@
 require_relative 'test_helper'
 
-class MysqlBigTableMigrationTest < Test::Unit::TestCase
+class MysqlBigTableMigrationTest < Minitest::Test
   extend DatabaseTest
 
   test_against_all_configs :methods_are_added_to_migration do
-    if Rails::VERSION::STRING < "3.0"
+    if ActiveRecord::VERSION::STRING < "3.0"
       method_target = ActiveRecord::Migration
     else
       method_target = ActiveRecord::Migration.new
@@ -188,7 +188,9 @@ class MysqlBigTableMigrationTest < Test::Unit::TestCase
     silence_stream($stdout) do
       ActiveRecord::Migration.with_tmp_table(:test_table) do |tmp_table_name|
         ActiveRecord::Migration.rename_column tmp_table_name, :bar, :baz
-        ActiveRecord::Migration.change_column tmp_table_name, :foo, :integer
+        # MySQL can't properly change string data to integer ("Incorrect integer value: 'foo0'")
+        # Also, limit: 3 will fail ("Data too long") w/ sql_mode = 'STRICT_ALL_TABLES'
+        ActiveRecord::Migration.change_column tmp_table_name, :foo, :string, limit: 10
       end
     end
 
@@ -196,13 +198,13 @@ class MysqlBigTableMigrationTest < Test::Unit::TestCase
     assert_equal 3, fields.length
     assert_equal "id", fields[0]["Field"]
     assert_equal "foo", fields[1]["Field"]
-    assert_equal "int(11)", fields[1]["Type"]
+    assert_equal "varchar(10)", fields[1]["Type"]
     assert_equal "baz", fields[2]["Field"]
 
     results = test_table_rows
     assert_equal 5, results.length
     5.times do |i|
-      assert results[i]["foo"] == "0" || results[i]["foo"] == 0
+      assert_equal "foo#{i}", results[i]["foo"]
       assert_equal "bar#{i}", results[i]["baz"]
     end
   end

@@ -1,22 +1,34 @@
+[![Build Status](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration.svg)](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration)
+
 MysqlBigTableMigration
 ======================
-                              
-A Rails plugin that adds methods to ActiveRecord::Migration to allow columns 
+
+A Rails plugin that adds methods to ActiveRecord::Migration to allow columns
 and indexes to be added to and removed from large tables with millions of
 rows in MySQL, without leaving processes seemingly stalled in state "copy
 to tmp table".
-                                    
-For each of the standard transformations that operate on columns or indexes, 
-this plugin adds a "using_tmp_table" version. These methods create a 
-temporary table with the same structure as the table to be altered, applies 
+
+For each of the standard transformations that operate on columns or indexes,
+this plugin adds a "using_tmp_table" version. These methods create a
+temporary table with the same structure as the table to be altered, applies
 the transformation to the temp table, copies data from the source table to
 the temp table and then replaces the source table with the temporary one.
 
-While it does try to ensure that data is consistent at the end of the entire 
-process by locking tables and looking for rows created or modified during 
-copying, this is NOT TRANSACTION SAFE as it (a) relies on timestamp columns 
-and (b) doesn't handle rows that have been deleted from the source table 
+While it does try to ensure that data is consistent at the end of the entire
+process by locking tables and looking for rows created or modified during
+copying, this is NOT TRANSACTION SAFE as it (a) relies on timestamp columns
+and (b) doesn't handle rows that have been deleted from the source table
 after being copied to the temporary table.
+
+Installation
+============
+
+source 'https://rubygems.org' do
+  ...
+  gem 'mysql_big_table_migration'
+  ...
+end
+
 
 Example
 =======

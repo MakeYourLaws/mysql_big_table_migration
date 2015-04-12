@@ -1,10 +1,5 @@
 require 'rake'
 require 'rake/testtask'
-begin
-  require 'rdoc/task'
-rescue LoadError
-  require 'rake/rdoctask'
-end
 
 desc 'Default: run unit tests.'
 task :default => :test
@@ -12,15 +7,9 @@ task :default => :test
 desc 'Test the mysql_big_table_migration plugin.'
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib'
-  t.pattern = 'test/**/*_test.rb'
+  t.pattern = 'test/*_test.rb'
   t.verbose = true
 end
 
-desc 'Generate documentation for the mysql_big_table_migration plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'MysqlBigTableMigration'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end
+Bundler::GemHelper.install_tasks
+Dir.glob('tasks/*.rake').each { |r| import r }
