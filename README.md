@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration.svg)](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration)
+[![Build Status](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration.svg)](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration) [![Gem Version](https://badge.fury.io/rb/mysql_big_table_migration.svg)](http://badge.fury.io/rb/mysql_big_table_migration)
 
 MysqlBigTableMigration
 ======================
