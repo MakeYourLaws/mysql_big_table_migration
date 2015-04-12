@@ -44,6 +44,18 @@ Example
 	  end
 	end
 
+	class MungeOtherTable < ActiveRecord::Migration
+	  def change
+	    with_tmp_table :some_table do |t|
+	      remove_column t, :boring_data
+	      remove_index t, name: :index_some_table_on_useful_data_and_boring_data
+	      add_column t, :other_id, :integer
+	      change_column t, :comment, :string, limit: 140
+	      add_index t, :other_id, unique: true, name: :idx_other_id
+	    end
+	  end
+	end
+
 
 Copyright (c) 2010 Mark Woods, released under the MIT license
 
