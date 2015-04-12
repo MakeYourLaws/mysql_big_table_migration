@@ -15,6 +15,7 @@ before_install:
 services:
   - mysql
 script:
+  - bundle install
   - bundle exec rake test
 cache:
   - bundler
