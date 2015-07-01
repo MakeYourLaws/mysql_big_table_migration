@@ -1,4 +1,10 @@
-[![Build Status](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration.svg)](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration) [![Gem Version](https://badge.fury.io/rb/mysql_big_table_migration.svg)](http://badge.fury.io/rb/mysql_big_table_migration)
+[![Build Status](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration.svg)](https://travis-ci.org/MakeYourLaws/mysql_big_table_migration)
+[![Gem Version](https://badge.fury.io/rb/mysql_big_table_migration.svg)](http://badge.fury.io/rb/mysql_big_table_migration)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/MakeYourLaws/mysql_big_table_migration/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/MakeYourLaws/mysql_big_table_migration/?branch=master)
+[![security](https://hakiri.io/github/MakeYourLaws/mysql_big_table_migration/master.svg)](https://hakiri.io/github/MakeYourLaws/mysql_big_table_migration/master)
+[![Code Climate](https://codeclimate.com/github/MakeYourLaws/mysql_big_table_migration/badges/gpa.svg)](https://codeclimate.com/github/MakeYourLaws/mysql_big_table_migration)
+[![Test Coverage](https://codeclimate.com/github/MakeYourLaws/mysql_big_table_migration/badges/coverage.svg)](https://codeclimate.com/github/MakeYourLaws/mysql_big_table_migration/coverage)
+[![Dependency Status](https://gemnasium.com/MakeYourLaws/mysql_big_table_migration.svg)](https://gemnasium.com/MakeYourLaws/mysql_big_table_migration)
 
 MysqlBigTableMigration
 ======================

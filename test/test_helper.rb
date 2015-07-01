@@ -10,6 +10,8 @@ require 'mysql2'
 require 'logger'
 require 'yaml'
 require File.dirname(__FILE__) + "/../lib/mysql_big_table_migration"
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 
 TEST_CONFIGS = ["mysql", "mysql2"]
 
